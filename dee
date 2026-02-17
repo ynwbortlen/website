@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ORIGINAL SERVICES</title>
+  <style>
+    :root {
+      --primary: #ff1a1a;
+      --primary-dark: #b30000;
+      --accent: #ff4d4d;
+      --bg-dark: #0a0a0a;
+      --card-bg: #111114;
+      --text: #f0f0f0;
+      --glow: rgba(255, 26, 26, 0.7);
+      --discord: #5865F2;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #0f001a, #1a0000, #0a0a1f, #1a000a);
+      background-size: 400% 400%;
+      animation: gradientShift 25s ease infinite;
+      z-index: -2;
+      opacity: 0.55;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+    /* Header with centered title & top-left auth */
+    .header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, var(--primary-dark), #000);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.9);
+    }
+
+    header {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff, var(--primary), #fff);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: glitch 5s infinite alternate, shine 8s infinite;
+      text-shadow: 0 0 25px var(--glow);
+      flex: 1;
+      text-align: center;
+    }
+
+    @keyframes glitch { 0%,100% { transform: translate(0); } 20% { transform: translate(-4px,4px); } 40% { transform: translate(4px,-4px); } }
+    @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
+
+    .auth-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .login-btn, .logged-in {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--discord);
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(88,101,242,0.25);
+    }
+
+    .login-btn:hover {
+      background: var(--discord);
+      color: white;
+      box-shadow: 0 0 25px rgba(88,101,242,0.6);
+      transform: translateY(-2px);
+    }
+
+    .login-btn img, .logged-in img {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+    }
+
+    .logged-in {
+      background: rgba(88,101,242,0.15);
+      border: 1px solid var(--discord);
+      color: var(--primary);
+      display: none;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .product {
+      background: var(--card-bg);
+      border: 1px solid var(--primary-dark);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 12px 45px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .product:hover {
+      transform: translateY(-18px) scale(1.06);
+      box-shadow: 0 0 60px 20px var(--glow), inset 0 0 35px rgba(255,26,26,0.18);
+      border-color: var(--accent);
+    }
+
+    .product h2 {
+      color: var(--primary);
+      font-size: 2.1rem;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 18px var(--glow);
+    }
+
+    .product p {
+      flex: 1;
+      line-height: 1.7;
+      color: #ddd;
+      margin-bottom: 1.8rem;
+      font-size: 1.05rem;
+    }
+
+    .buy-btn {
+      padding: 16px 40px;
+      background: var(--primary-dark);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 50px;
+      border: 2px solid var(--primary);
+      text-align: center;
+      transition: all 0.4s;
+      margin-top: auto;
+      align-self: center;
+    }
+
+    .buy-btn:hover {
+      background: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 0 50px var(--glow);
+    }
+
+    /* Other sections (rating, policy, support) - kept enhanced but concise */
+    .rating-section, .policy-section, .support-section {
+      max-width: 1280px;
+      margin: 5rem auto;
+      padding: 3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--primary-dark);
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(179,0,0,0.35);
+      text-align: center;
+    }
+
+    .rating-section h2, .policy-section h2, .support-section h2 {
+      color: var(--primary);
+      margin-bottom: 1.8rem;
+      text-shadow: 0 0 22px var(--glow);
+    }
+
+    .stars {
+      font-size: 3.8rem;
+      display: inline-flex;
+      flex-direction: row-reverse;
+    }
+
+    .stars label {
+      color: #444;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .stars label:hover, .stars input:checked ~ label {
+      color: #ffd700;
+      text-shadow: 0 0 18px #ffcc00;
+      transform: scale(1.15);
+    }
+
+    .support-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 50px;
+      background: var(--discord);
+      color: white;
+      font-weight: bold;
+      font-size: 1.4rem;
+      border-radius: 50px;
+      border: 2px solid #7289da;
+      text-decoration: none;
+      margin: 2rem auto 0;
+      transition: all 0.4s;
+      box-shadow: 0 0 30px rgba(88,101,242,0.5);
+    }
+
+    .support-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 55px rgba(88,101,242,0.9);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #000;
+      color: #777;
+      font-size: 0.95rem;
+      border-top: 1px solid var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .header-wrapper { flex-direction: column; gap: 1rem; padding: 1.2rem; }
+      header { font-size: 2.4rem; }
+      .container { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <audio autoplay loop volume="0.18">
+    <source src="YOUR-SONG-LINK-HERE.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="header-wrapper">
+    <div class="auth-nav">
+      <a id="loginBtn" href="https://discord.com/oauth2/authorize?client_id=1287178989227741256&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=94420" class="login-btn">
+        <img src="https://img.icons8.com/?size=100&id=2mIgusGquJFz&format=png&color=000000" alt="Discord">
+        Login with Discord
+      </a>
+      <div id="loggedIn" class="logged-in">
+        <img id="userAvatar" src="" alt="Avatar">
+        Logged in as <span id="userName"></span>
+      </div>
+    </div>
+    <header>ORIGINAL SERVICES</header>
+  </div>
+
+  <div class="container">
+    <div class="product">
+      <h2>Matrix Key — Lifetime</h2>
+      <p>Instant delivery. Lifetime access key. Secure, fast, and reliable for permanent use.</p>
+      <a class="buy-btn" href="https://payhip.com/b/8iD03">Buy Now</a>
+    </div>
+    <div class="product">
+      <h2>FiveM Silent Aim</h2>
+      <p>Pinpoint accuracy. Undetectable. Easy install. Dominate your sessions instantly.</p>
+      <a class="buy-btn" href="https://payhip.com/b/OX5uQ">Buy Now</a>
+    </div>
+    <div class="product">
+      <h2>PC Check Cleaner</h2>
+      <p>Deep optimization. Removes junk. Boosts speed & performance dramatically.</p>
+      <a class="buy-btn" href="https://payhip.com/b/IcxwX">Buy Now</a>
+    </div>
+    <div class="product">
+      <h2>TikTok Method</h2>
+      <p>Proven 2025 growth hacks. Step-by-step. Explode your views & followers fast.</p>
+      <a class="buy-btn" href="https://payhip.com/b/jieTn">Buy Now</a>
+    </div>
+  </div>
+
+  <div class="rating-section">
+    <h2>Rate Our Services</h2>
+    <form class="stars">
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+    </form>
+  </div>
+
+  <div class="policy-section">
+    <h2>Refund Policy</h2>
+    <p>All payments are final and non-refundable.</p>
+    <p>Chargebacks or Cashapp disputes = permanent ban from all our servers & affiliates.</p>
+    <p>Files are personal — no sharing allowed.</p>
+    <p>Purchase = agreement to these terms.</p>
+  </div>
+
+  <div class="support-section">
+    <h2>Need Help?</h2>
+    <a href="https://discord.gg/NFE7EFuys6" target="_blank" class="support-btn">
+      <img src="https://img.icons8.com/?size=100&id=2mIgusGquJFz&format=png&color=000000" alt="Discord">
+      Join Discord for Support
+    </a>
+  </div>
+
+  <footer>© 2026 ORIGINAL SERVICES • Secure • Premium Digital Shop</footer>
+
+  <script>
+    // Particles
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() { canvas.width = w = window.innerWidth; canvas.height = h = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+
+    const particles = [];
+    for (let i = 0; i < 120; i++) {
+      particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        size: Math.random() * 3 + 0.8,
+        speedX: Math.random() * 1 - 0.5,
+        speedY: Math.random() * 1 - 0.5
+      });
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(10,10,10,0.07)';
+      ctx.fillRect(0,0,w,h);
+      particles.forEach(p => {
+        p.x += p.speedX; p.y += p.speedY;
+        if (p.x < 0 || p.x > w) p.speedX *= -1;
+        if (p.y < 0 || p.y > h) p.speedY *= -1;
+        ctx.fillStyle = 'rgba(255,70,70,0.65)';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Discord Login Handling
+    const loginBtn = document.getElementById('loginBtn');
+    const loggedIn = document.getElementById('loggedIn');
+    const userName = document.getElementById('userName');
+    const userAvatar = document.getElementById('userAvatar');
+
+    // Check for return from OAuth (query params set by your backend)
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username') || localStorage.getItem('discord_username');
+    const avatar = params.get('avatar_url');
+
+    if (username) {
+      userName.textContent = username;
+      if (avatar) userAvatar.src = avatar;
+      else userAvatar.src = 'https://via.placeholder.com/22?text=U'; // fallback
+      loginBtn.style.display = 'none';
+      loggedIn.style.display = 'flex';
+      localStorage.setItem('discord_username', username);
+      // Optional: clean URL
+      if (window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  </script>
+</body>
+</html>
