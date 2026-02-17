@@ -15,9 +15,7 @@
       --glow: rgba(255, 26, 26, 0.7);
       --discord: #5865F2;
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
-
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg-dark);
@@ -26,7 +24,6 @@
       overflow-x: hidden;
       position: relative;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -37,16 +34,27 @@
       z-index: -2;
       opacity: 0.55;
     }
-
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 
-    /* Header with centered title & top-left auth */
+    /* Announcement Banner */
+    .announcement {
+      background: rgba(255, 26, 26, 0.25);
+      color: #ffdddd;
+      text-align: center;
+      padding: 12px;
+      font-weight: bold;
+      border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      box-shadow: 0 4px 15px rgba(179,0,0,0.4);
+    }
+
     .header-wrapper {
       display: flex;
       align-items: center;
@@ -54,11 +62,10 @@
       padding: 1.2rem 3rem;
       background: linear-gradient(to bottom, var(--primary-dark), #000);
       position: sticky;
-      top: 0;
+      top: 50px;
       z-index: 100;
       box-shadow: 0 4px 25px rgba(0,0,0,0.9);
     }
-
     header {
       font-size: 3rem;
       font-weight: 900;
@@ -74,17 +81,15 @@
       flex: 1;
       text-align: center;
     }
-
     @keyframes glitch { 0%,100% { transform: translate(0); } 20% { transform: translate(-4px,4px); } 40% { transform: translate(4px,-4px); } }
     @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
 
     .auth-nav {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
     }
-
-    .login-btn, .logged-in {
+    .login-btn, .logged-in, .dashboard-link {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -94,7 +99,6 @@
       border-radius: 30px;
       transition: all 0.3s ease;
     }
-
     .login-btn {
       background: transparent;
       color: var(--text);
@@ -102,25 +106,34 @@
       text-decoration: none;
       box-shadow: 0 0 12px rgba(88,101,242,0.25);
     }
-
     .login-btn:hover {
       background: var(--discord);
       color: white;
       box-shadow: 0 0 25px rgba(88,101,242,0.6);
       transform: translateY(-2px);
     }
-
-    .login-btn img, .logged-in img {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-    }
-
     .logged-in {
       background: rgba(88,101,242,0.15);
       border: 1px solid var(--discord);
       color: var(--primary);
       display: none;
+    }
+    .dashboard-link {
+      background: rgba(255,26,26,0.15);
+      border: 1px solid var(--primary);
+      color: var(--accent);
+      text-decoration: none;
+      display: none;
+    }
+    .dashboard-link:hover {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 0 25px var(--glow);
+    }
+    .login-btn img, .logged-in img {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
     }
 
     .container {
@@ -131,7 +144,6 @@
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2.5rem;
     }
-
     .product {
       background: var(--card-bg);
       border: 1px solid var(--primary-dark);
@@ -143,20 +155,17 @@
       flex-direction: column;
       height: 100%;
     }
-
     .product:hover {
       transform: translateY(-18px) scale(1.06);
       box-shadow: 0 0 60px 20px var(--glow), inset 0 0 35px rgba(255,26,26,0.18);
       border-color: var(--accent);
     }
-
     .product h2 {
       color: var(--primary);
       font-size: 2.1rem;
       margin-bottom: 1.2rem;
       text-shadow: 0 0 18px var(--glow);
     }
-
     .product p {
       flex: 1;
       line-height: 1.7;
@@ -164,7 +173,6 @@
       margin-bottom: 1.8rem;
       font-size: 1.05rem;
     }
-
     .buy-btn {
       padding: 16px 40px;
       background: var(--primary-dark);
@@ -177,16 +185,15 @@
       transition: all 0.4s;
       margin-top: auto;
       align-self: center;
+      cursor: pointer;
     }
-
     .buy-btn:hover {
       background: var(--primary);
       transform: translateY(-4px);
       box-shadow: 0 0 50px var(--glow);
     }
 
-    /* Other sections (rating, policy, support) - kept enhanced but concise */
-    .rating-section, .policy-section, .support-section {
+    .policy-section, .support-section {
       max-width: 1280px;
       margin: 5rem auto;
       padding: 3rem;
@@ -196,53 +203,31 @@
       box-shadow: 0 0 50px rgba(179,0,0,0.35);
       text-align: center;
     }
-
-    .rating-section h2, .policy-section h2, .support-section h2 {
+    .policy-section h2, .support-section h2 {
       color: var(--primary);
       margin-bottom: 1.8rem;
       text-shadow: 0 0 22px var(--glow);
     }
-
-    .stars {
-      font-size: 3.8rem;
-      display: inline-flex;
-      flex-direction: row-reverse;
-    }
-
-    .stars label {
-      color: #444;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .stars label:hover, .stars input:checked ~ label {
-      color: #ffd700;
-      text-shadow: 0 0 18px #ffcc00;
-      transform: scale(1.15);
-    }
-
     .support-btn {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 18px 50px;
+      padding: 20px 60px;
       background: var(--discord);
       color: white;
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       border-radius: 50px;
       border: 2px solid #7289da;
       text-decoration: none;
       margin: 2rem auto 0;
       transition: all 0.4s;
-      box-shadow: 0 0 30px rgba(88,101,242,0.5);
+      box-shadow: 0 0 35px rgba(88,101,242,0.6);
     }
-
     .support-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 55px rgba(88,101,242,0.9);
+      transform: scale(1.1);
+      box-shadow: 0 0 60px rgba(88,101,242,1);
     }
-
     footer {
       text-align: center;
       padding: 3rem 1rem;
@@ -251,11 +236,11 @@
       font-size: 0.95rem;
       border-top: 1px solid var(--primary-dark);
     }
-
     @media (max-width: 768px) {
       .header-wrapper { flex-direction: column; gap: 1rem; padding: 1.2rem; }
       header { font-size: 2.4rem; }
       .container { padding: 0 1rem; }
+      .support-btn { font-size: 1.2rem; padding: 16px 40px; }
     }
   </style>
 </head>
@@ -263,13 +248,18 @@
 
   <canvas id="particles"></canvas>
 
+  <!-- Announcement Banner -->
+  <div class="announcement">
+    Welcome to ORIGINAL SERVICES • Instant Delivery • Join Discord for Support & Updates
+  </div>
+
   <audio autoplay loop volume="0.18">
     <source src="YOUR-SONG-LINK-HERE.mp3" type="audio/mpeg">
   </audio>
 
   <div class="header-wrapper">
     <div class="auth-nav">
-      <a id="loginBtn" href="https://discord.com/oauth2/authorize?client_id=1287178989227741256&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=94420" class="login-btn">
+      <a id="loginBtn" href="#" class="login-btn">
         <img src="https://img.icons8.com/?size=100&id=2mIgusGquJFz&format=png&color=000000" alt="Discord">
         Login with Discord
       </a>
@@ -277,6 +267,9 @@
         <img id="userAvatar" src="" alt="Avatar">
         Logged in as <span id="userName"></span>
       </div>
+      <a id="dashboardLink" href="#dashboard" class="dashboard-link">
+        My Dashboard
+      </a>
     </div>
     <header>ORIGINAL SERVICES</header>
   </div>
@@ -285,34 +278,23 @@
     <div class="product">
       <h2>Matrix Key — Lifetime</h2>
       <p>Instant delivery. Lifetime access key. Secure, fast, and reliable for permanent use.</p>
-      <a class="buy-btn" href="https://payhip.com/b/8iD03">Buy Now</a>
+      <button class="buy-btn" data-payhip="https://payhip.com/b/8iD03">Buy Now</button>
     </div>
     <div class="product">
       <h2>FiveM Silent Aim</h2>
       <p>Pinpoint accuracy. Undetectable. Easy install. Dominate your sessions instantly.</p>
-      <a class="buy-btn" href="https://payhip.com/b/OX5uQ">Buy Now</a>
+      <button class="buy-btn" data-payhip="https://payhip.com/b/OX5uQ">Buy Now</button>
     </div>
     <div class="product">
       <h2>PC Check Cleaner</h2>
       <p>Deep optimization. Removes junk. Boosts speed & performance dramatically.</p>
-      <a class="buy-btn" href="https://payhip.com/b/IcxwX">Buy Now</a>
+      <button class="buy-btn" data-payhip="https://payhip.com/b/IcxwX">Buy Now</button>
     </div>
     <div class="product">
       <h2>TikTok Method</h2>
       <p>Proven 2025 growth hacks. Step-by-step. Explode your views & followers fast.</p>
-      <a class="buy-btn" href="https://payhip.com/b/jieTn">Buy Now</a>
+      <button class="buy-btn" data-payhip="https://payhip.com/b/jieTn">Buy Now</button>
     </div>
-  </div>
-
-  <div class="rating-section">
-    <h2>Rate Our Services</h2>
-    <form class="stars">
-      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-    </form>
   </div>
 
   <div class="policy-section">
@@ -325,6 +307,9 @@
 
   <div class="support-section">
     <h2>Need Help?</h2>
+    <p style="margin:1.5rem 0; color:#ccc; font-size:1.1rem;">
+      Open a private ticket or get live help from our staff team.
+    </p>
     <a href="https://discord.gg/NFE7EFuys6" target="_blank" class="support-btn">
       <img src="https://img.icons8.com/?size=100&id=2mIgusGquJFz&format=png&color=000000" alt="Discord">
       Join Discord for Support
@@ -334,13 +319,12 @@
   <footer>© 2026 ORIGINAL SERVICES • Secure • Premium Digital Shop</footer>
 
   <script>
-    // Particles
+    // Particles background
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     let w, h;
     function resize() { canvas.width = w = window.innerWidth; canvas.height = h = window.innerHeight; }
     resize(); window.addEventListener('resize', resize);
-
     const particles = [];
     for (let i = 0; i < 120; i++) {
       particles.push({
@@ -350,7 +334,6 @@
         speedY: Math.random() * 1 - 0.5
       });
     }
-
     function animate() {
       ctx.fillStyle = 'rgba(10,10,10,0.07)';
       ctx.fillRect(0,0,w,h);
@@ -365,29 +348,55 @@
     }
     animate();
 
-    // Discord Login Handling
+    // Auth & Session Management
     const loginBtn = document.getElementById('loginBtn');
     const loggedIn = document.getElementById('loggedIn');
     const userName = document.getElementById('userName');
     const userAvatar = document.getElementById('userAvatar');
+    const dashboardLink = document.getElementById('dashboardLink');
 
-    // Check for return from OAuth (query params set by your backend)
     const params = new URLSearchParams(window.location.search);
-    const username = params.get('username') || localStorage.getItem('discord_username');
-    const avatar = params.get('avatar_url');
+    let username = params.get('username') || localStorage.getItem('discord_username');
+    let avatar = params.get('avatar_url') || localStorage.getItem('discord_avatar');
 
-    if (username) {
-      userName.textContent = username;
-      if (avatar) userAvatar.src = avatar;
-      else userAvatar.src = 'https://via.placeholder.com/22?text=U'; // fallback
-      loginBtn.style.display = 'none';
-      loggedIn.style.display = 'flex';
-      localStorage.setItem('discord_username', username);
-      // Optional: clean URL
-      if (window.history.replaceState) {
-        window.history.replaceState({}, document.title, window.location.pathname);
+    function updateUI() {
+      if (username) {
+        userName.textContent = username;
+        userAvatar.src = avatar || 'https://via.placeholder.com/22?text=U';
+        loginBtn.style.display = 'none';
+        loggedIn.style.display = 'flex';
+        dashboardLink.style.display = 'flex';
+        localStorage.setItem('discord_username', username);
+        if (avatar) localStorage.setItem('discord_avatar', avatar);
+        if (window.history.replaceState) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
       }
     }
+    updateUI();
+
+    // Login with return to current page
+    loginBtn.href = `https://discord.com/oauth2/authorize?client_id=1287178989227741256&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=94420&redirect_uri_current=${encodeURIComponent(window.location.href)}`;
+
+    // Buy Now - require login
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        if (!localStorage.getItem('discord_username')) {
+          e.preventDefault();
+          if (confirm("You must be logged in to purchase.\nLogin with Discord now?")) {
+            loginBtn.click();
+          }
+        } else {
+          window.location.href = btn.dataset.payhip;
+        }
+      });
+    });
+
+    // Dashboard placeholder
+    dashboardLink.addEventListener('click', e => {
+      e.preventDefault();
+      alert("Your personal dashboard is coming soon!\nYou'll be able to see:\n• Purchased products\n• Download links\n• License keys\n• Support tickets\n• Account settings");
+    });
   </script>
 </body>
 </html>
